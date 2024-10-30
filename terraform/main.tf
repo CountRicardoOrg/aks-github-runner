@@ -1,11 +1,13 @@
 terraform {
+  backend "azurerm" {
+  }
+  required_version = ">= 1.3.0"
   required_providers {
     azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "=2.66.0"
+      source                = "hashicorp/azurerm"
+      version = ">= 3.35.0"
     }
   }
-  backend "azurerm" {}
 }
 
 # Configure the Microsoft Azure Provider
@@ -58,7 +60,7 @@ variable "cluster_name" {
 
 variable "agents_size" {
   type = string
-  default = "Standard_D2_v2"
+  default = "Standard_D2_v3"
 }
 
 variable "agents_count" {
@@ -68,5 +70,5 @@ variable "agents_count" {
 
 variable "kubernetes_version" {
   type = string
-  default = "1.21.2"
+  default = "1.29.2"
 }
