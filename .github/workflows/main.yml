@@ -36,22 +36,27 @@ jobs:
           echo "::set-output name=container_name::$CONTAINER_NAME"
           echo "::set-output name=account_key::$ACCOUNT_KEY"
 
-      - name: Create AKS Cluster
-        uses: Azure/aks-create-action@1.1
-        with:
-          CLUSTER_NAME: aksghrunner
-          RESOURCE_GROUP_NAME: ${{ secrets.RESOURCE_GROUP_NAME }}
-          STORAGE_ACCOUNT_NAME: ${{ steps.setup_storage.outputs.storage_account_name }}
-          STORAGE_CONTAINER_NAME: ${{ steps.setup_storage.outputs.container_name }}
-          STORAGE_ACCESS_KEY: ${{ steps.setup_storage.outputs.account_key }}
-          ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
-          ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
-          ACTION_TYPE: create
-          CLUSTER_SIZE: dev
-          CREATE_ACR: true
+#      - name: Create AKS Cluster
+#        uses: Azure/aks-create-action@1.1
+#        with:
+#          CLUSTER_NAME: aksghrunner
+#          RESOURCE_GROUP_NAME: ${{ secrets.RESOURCE_GROUP_NAME }}
+#          STORAGE_ACCOUNT_NAME: ${{ steps.setup_storage.outputs.storage_account_name }}
+#          STORAGE_CONTAINER_NAME: ${{ steps.setup_storage.outputs.container_name }}
+#          STORAGE_ACCESS_KEY: ${{ steps.setup_storage.outputs.account_key }}
+#          ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+#          ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+#          ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
+#          ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
+#          ACTION_TYPE: create
+#          CLUSTER_SIZE: dev
+#          CREATE_ACR: true
 
+      - name: set the cluster name up
+        id: set_cluster_name
+        run: |
+          CLUSTER_NAME=aksghrunner
+          
       - name: Build and push Github Runner image
         run: |
           az configure --defaults acr=${CLUSTER_NAME}
