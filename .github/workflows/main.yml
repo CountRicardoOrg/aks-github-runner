@@ -36,8 +36,8 @@ jobs:
           echo "::set-output name=container_name::$CONTAINER_NAME"
           echo "::set-output name=account_key::$ACCOUNT_KEY"
 
-      # Create AKS Cluster
-      - uses: actions/aks_create_action@v1
+      - name: Create AKS Cluster
+        uses: Azure/aks-create-action@1.1
         with:
           CLUSTER_NAME: aksghrunner
           RESOURCE_GROUP_NAME: ${{ secrets.RESOURCE_GROUP_NAME }}
